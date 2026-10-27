@@ -1,0 +1,177 @@
+/* Delta Transit Pulse - Unified Stylesheet */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary: #00288e;
+  --primary-container: #1e40af;
+  --secondary: #00668a;
+  --secondary-container: #40c2fd;
+  --tertiary: #70000c;
+  --tertiary-container: #9b0015;
+  --surface: #faf8ff;
+  --surface-dim: #d2d9f4;
+  --surface-bright: #faf8ff;
+  --surface-container: #eaedff;
+  --surface-container-low: #f2f3ff;
+  --surface-container-high: #e2e7ff;
+  --surface-container-highest: #dae2fd;
+  --surface-container-lowest: #ffffff;
+  --on-surface: #131b2e;
+  --on-surface-variant: #444653;
+  --outline: #757684;
+  --outline-variant: #c4c5d5;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'IBM Plex Sans Arabic', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--surface);
+  color: var(--on-surface);
+  direction: rtl;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface-container-low);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--outline-variant);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--outline);
+}
+
+/* Active Nav State */
+.nav-link.active,
+.mobile-nav-link.active {
+  background-color: var(--primary-container) !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2);
+}
+
+.nav-link:not(.active),
+.mobile-nav-link:not(.active) {
+  color: var(--on-surface-variant);
+}
+
+.nav-link:not(.active):hover,
+.mobile-nav-link:not(.active):hover {
+  background-color: var(--surface-container-high);
+  color: var(--on-surface);
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.glass-panel-dark {
+  background: rgba(19, 27, 46, 0.88);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Toast Container & Notification Toast */
+#toast-container {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  min-width: 280px;
+  max-width: 420px;
+  padding: 12px 18px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  animation: slideInToast 0.35s ease forwards;
+  transition: all 0.3s ease;
+}
+
+.toast.toast-success {
+  background-color: #065f46;
+  color: #ecfdf5;
+}
+
+.toast.toast-info {
+  background-color: #1e40af;
+  color: #eff6ff;
+}
+
+.toast.toast-warning {
+  background-color: #92400e;
+  color: #fffbeb;
+}
+
+.toast.toast-error {
+  background-color: #991b1b;
+  color: #fef2f2;
+}
+
+@keyframes slideInToast {
+  from {
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Print Styles for Boarding Pass / Ticket */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  
+  header, footer, nav, #toast-container, button {
+    display: none !important;
+  }
+  
+  #printable-ticket, #printable-ticket * {
+    visibility: visible;
+  }
+  
+  #printable-ticket {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    box-shadow: none;
+    border: 2px solid #00288e;
+  }
+}

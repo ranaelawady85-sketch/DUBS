@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>حجز المقاعد - باصات جامعة الدلتا</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased" data-page="student">
+  <!-- Header -->
+  <header class="fixed top-0 w-full z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <div class="h-20 w-full px-margin-lg flex items-center justify-between gap-space-lg">
+      <div class="flex items-center gap-space-lg">
+        <a href="index.html" class="flex items-center gap-space-md hover:opacity-90 transition-opacity">
+          <img alt="Delta Bus Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbb8lJmp3B8Nnh29JUwD5UFjhGgvZO3l6vsydujygi5Ti-GmXn1uw5-61wpqL4QTbs3-pxdLrFqDfnNbiPQx8Y8EQ-WGqZ0IUiOKdHG0qxiYzypvd_RKY-s4MILstMColQfN2turfhiB1WxVQq0QrNC3cwjVEERtcss2ARqZTxw1I69pC_-QyfoKlqAajcUF0kwGDWpUHKVBUXaKPLngIOJewlHJZ2WD1IKOyj8CXEKIPvHY--kYQB"/>
+          <div class="flex flex-col">
+            <div class="flex items-center gap-space-xs">
+              <span class="font-headline-md text-headline-md text-primary font-bold tracking-tight">جامعة الدلتا</span>
+              <span class="text-outline-variant font-body-md">|</span>
+              <span class="font-label-lg text-label-lg text-on-surface font-semibold">باصات النقل الذكي</span>
+            </div>
+            <span class="inline-flex items-center self-start font-label-sm text-label-sm text-secondary bg-surface-container-high px-space-xs py-0.5 rounded-full mt-0.5">2024 / 2025</span>
+          </div>
+        </a>
+        <nav class="hidden xl:flex items-center gap-space-xs pr-space-md" id="main-nav">
+          <a class="nav-link px-space-md py-space-xs rounded-lg font-label-lg text-label-lg transition-colors" data-page="index" href="index.html">الرئيسية</a>
+          <a class="nav-link active px-space-md py-space-xs rounded-lg font-label-lg text-label-lg transition-colors" data-page="student" href="student.html">حجز المقاعد</a>
+          <a class="nav-link px-space-md py-space-xs rounded-lg font-label-lg text-label-lg transition-colors" data-page="driver" href="driver.html">السائق</a>
+          <a class="nav-link px-space-md py-space-xs rounded-lg font-label-lg text-label-lg transition-colors" data-page="supervisor" href="supervisor.html">المشرف</a>
+        </nav>
+      </div>
+      <div class="flex items-center gap-space-md">
+        <div class="hidden md:flex items-center gap-space-xs bg-surface-container-high px-space-md py-1.5 rounded-full">
+          <span class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span>
+          <span class="font-label-sm text-label-sm text-on-surface font-semibold">الرحلات نشطة الآن 🟢</span>
+        </div>
+        <!-- Notifications button -->
+        <div class="relative flex items-center justify-center">
+          <button id="btn-notifications" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button" aria-label="الإشعارات">
+            <span class="material-symbols-outlined text-[20px]">notifications</span>
+          </button>
+          <span class="absolute -top-1 -right-1 bg-tertiary text-on-tertiary font-label-sm text-[10px] h-5 min-w-[20px] px-1 rounded-full flex items-center justify-center shadow-sm">2</span>
+          <!-- Notifications Dropdown -->
+          <div id="notifications-dropdown" class="hidden absolute left-0 top-12 w-80 bg-surface-container-lowest rounded-2xl shadow-2xl border border-outline-variant/30 p-space-md z-50">
+            <div class="flex items-center justify-between pb-2 border-b border-outline-variant/20 mb-2">
+              <span class="font-label-lg text-label-lg font-bold text-on-surface">التنبيهات</span>
+              <span class="font-label-sm text-label-sm bg-primary/10 text-primary px-2 py-0.5 rounded-full font-bold">2 جديد</span>
+            </div>
+            <div class="flex flex-col gap-2">
+              <div class="p-2 rounded-xl bg-surface-container-low flex items-start gap-2">
+                <span class="material-symbols-outlined text-secondary text-[20px] mt-0.5">event_seat</span>
+                <div class="flex flex-col text-right">
+                  <span class="font-label-md text-label-md font-semibold text-on-surface">تم تأكيد مقعدك رقم 14</span>
+                  <span class="font-label-sm text-label-sm text-on-surface-variant">انطلاق باص المنصورة 07:45 ص</span>
+                </div>
+              </div>
+              <div class="p-2 rounded-xl bg-surface-container-low flex items-start gap-2">
+                <span class="material-symbols-outlined text-primary text-[20px] mt-0.5">pin_drop</span>
+                <div class="flex flex-col text-right">
+                  <span class="font-label-md text-label-md font-semibold text-on-surface">باص DL-104 على الطريق الساحلي</span>
+                  <span class="font-label-sm text-label-sm text-on-surface-variant">الوصول خلال: 12 دقيقة</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Profile Pill -->
+        <div class="flex items-center gap-space-sm bg-surface-container-low hover:bg-surface-container px-space-sm py-1 rounded-full transition-colors cursor-pointer">
+          <img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAErlnYTLTpi1EO_UciTYueIZA0bn2u_uoj-jLUKA34F40n2FWM5aPp9ryZ-RvcAiXXM1KdC4yO6WE_32kxb7xhEU8ZK_QLZbR3Ay7Ir-vA4yEYb5Ns7FUW1o4irAcEc-culst0bGywoHd5xdKLwsLRZSJ2BMDZZRjfw5RHlE9L4Hs8R_PGtTtcu6TQ1xJzFqBr5eO-8TcjQ4TP15qTdVMTg1uVIKrJ_bTilcaXz2L6FyROjy0ga2_9"/>
+          <div class="hidden sm:flex flex-col text-right pl-space-xs">
+            <span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">أحمد محمود</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant leading-none">هندسة</span>
+          </div>
+        </div>
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn" class="xl:hidden w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors" type="button" aria-label="القائمة">
+          <span class="material-symbols-outlined text-[24px]">menu</span>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Drawer -->
+    <div id="mobile-drawer" class="hidden xl:hidden bg-surface-container-lowest border-b border-outline-variant/20 px-margin-lg py-space-md flex flex-col gap-space-xs shadow-lg">
+      <a class="mobile-nav-link px-space-md py-space-sm rounded-lg font-label-lg text-label-lg transition-colors flex items-center gap-space-sm" data-page="index" href="index.html">
+        <span class="material-symbols-outlined text-[20px]">home</span>
+        <span>الرئيسية</span>
+      </a>
+      <a class="mobile-nav-link active px-space-md py-space-sm rounded-lg font-label-lg text-label-lg transition-colors flex items-center gap-space-sm" data-page="student" href="student.html">
+        <span class="material-symbols-outlined text-[20px]">school</span>
+        <span>حجز المقاعد</span>
+      </a>
+      <a class="mobile-nav-link px-space-md py-space-sm rounded-lg font-label-lg text-label-lg transition-colors flex items-center gap-space-sm" data-page="driver" href="driver.html">
+        <span class="material-symbols-outlined text-[20px]">sports_motorsports</span>
+        <span>السائق</span>
+      </a>
+      <a class="mobile-nav-link px-space-md py-space-sm rounded-lg font-label-lg text-label-lg transition-colors flex items-center gap-space-sm" data-page="supervisor" href="supervisor.html">
+        <span class="material-symbols-outlined text-[20px]">hub</span>
+        <span>المشرف</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="w-full pt-20 bg-surface min-h-[calc(100vh-80px)]">
+    <div class="flex flex-col w-full">
+      <div class="relative w-full overflow-hidden bg-surface py-space-lg px-margin md:px-margin-lg">
+        <div class="max-w-7xl mx-auto flex flex-col gap-space-lg">
+
+          <!-- Route Selector Bar -->
+          <section class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-md border border-outline-variant/20">
+            <div class="flex flex-col gap-space-xs">
+              <div class="flex items-center gap-space-sm flex-wrap">
+                <h1 class="font-headline-md text-headline-md text-on-surface font-bold">
+                  خط: المنصورة ⇆ جامعة الدلتا
+                </h1>
+                <span class="px-2.5 py-0.5 rounded-full bg-secondary-container/20 text-on-secondary-fixed-variant font-label-sm text-label-sm font-bold">
+                  متاح للحجز 🟢
+                </span>
+              </div>
+              <div class="flex items-center gap-space-md text-on-surface-variant font-body-md text-body-md flex-wrap">
+                <span><strong>الموعد:</strong> 07:45 ص</span>
+                <span>•</span>
+                <span><strong>الحافلة:</strong> DL-104</span>
+                <span>•</span>
+                <span><strong>السائق:</strong> ك. عصام</span>
+              </div>
+            </div>
+
+            <!-- Route Dropdown -->
+            <div class="flex items-center gap-space-sm">
+              <div class="relative flex-1 sm:w-64">
+                <select id="route-select" class="appearance-none bg-surface-container-low text-on-surface font-label-md text-label-md px-space-md py-2.5 pl-8 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer w-full">
+                  <option value="0" selected>07:45 ص - المنصورة</option>
+                  <option value="1">08:15 ص - طلخا</option>
+                  <option value="2">08:45 ص - دمياط الجديدة</option>
+                  <option value="3">09:15 ص - بلقاس</option>
+                </select>
+                <span class="material-symbols-outlined absolute left-2 top-2.5 pointer-events-none text-on-surface-variant text-[18px]">expand_more</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Main Grid: Bus Seats & Ticket -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+            
+            <!-- Left: Bus Seat Selection Matrix (7 Cols) -->
+            <div class="lg:col-span-7 flex flex-col gap-space-md">
+              <div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col gap-space-md border border-outline-variant/20">
+                
+                <!-- Matrix Header -->
+                <div class="flex items-center justify-between flex-wrap gap-2 pb-2 border-b border-outline-variant/20">
+                  <div>
+                    <h2 class="font-headline-md text-headline-md text-on-surface font-bold flex items-center gap-1">
+                      <span class="material-symbols-outlined text-primary text-[22px]">event_seat</span>
+                      اختر مقعدك (DL-104)
+                    </h2>
+                    <span class="font-body-md text-body-md text-on-surface-variant">اضغط على المقعد المتاح لتحديده</span>
+                  </div>
+                  <!-- Legend -->
+                  <div class="flex items-center gap-3 text-label-sm font-label-sm">
+                    <span class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-primary"></span>متاح</span>
+                    <span class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-error"></span>محجوز</span>
+                    <span class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-secondary-container"></span>مقعدك</span>
+                  </div>
+                </div>
+
+                <!-- Seat Stats Ticker -->
+                <div class="flex items-center justify-between text-label-md text-label-md px-space-md py-2 bg-surface-container-low rounded-lg">
+                  <div class="flex items-center gap-space-md">
+                    <span class="text-error font-semibold">28 محجوز</span>
+                    <span>•</span>
+                    <span class="text-primary font-semibold">11 متاح</span>
+                    <span>•</span>
+                    <span class="text-secondary font-bold">1 مقعدك</span>
+                  </div>
+                  <span class="font-label-sm text-on-surface-variant">الإشغال: 72%</span>
+                </div>
+
+                <!-- Bus Frame -->
+                <div class="w-full bg-surface-container-low rounded-2xl p-space-md flex flex-col items-center shadow-inner">
+                  <!-- Windshield -->
+                  <div class="w-full max-w-sm bg-surface-container-highest rounded-t-2xl py-2 px-space-md flex items-center justify-between text-label-sm font-label-sm">
+                    <span class="text-on-surface-variant">باب الصعود 🚪</span>
+                    <span class="font-bold text-primary">السائق 🧑‍✈️</span>
+                  </div>
+
+                  <!-- Cabin Seats Deck -->
+                  <div class="w-full max-w-sm bg-surface-container-lowest px-space-md py-space-md shadow-xs flex flex-col gap-2">
+                    <div class="flex flex-col gap-2" id="seatGrid">
+                      <!-- Row 1 -->
+                      <div class="grid grid-cols-5 items-center gap-2">
+                        <button class="h-10 rounded-lg bg-error text-on-error flex flex-col items-center justify-center font-label-md text-label-md font-bold shadow-xs cursor-not-allowed opacity-90" title="مقعد 01" type="button">
+                          <span>01</span>
+                        </button>
+                        <button class="h-10 rounded-lg bg-error text-on-error flex flex-col items-center justify-center font-label-md text-label-md font-bold shadow-xs cursor-not-allowed opacity-90" title="مقعد 02" type="button">
+                          <span>02</span>
+                        </button>
+                        <div class="text-center text-outline-variant text-[11px]">ممر</div>
+                        <button class="h-10 rounded-lg bg-primary hover:bg-primary-container text-on-primary flex flex-col items-center justify-center font-label-md text-label-md font-bold shadow-xs transition-transform active:scale-95" title="مقعد 03 - متاح" type="button">
+                          <span>03</span>
+                        </button>
+                        <button class="h-10 rounded-lg bg-error text-on-error flex flex-col items-center justify-center font-label-md text-label-md font-bold shadow-xs cursor-not-allowed opacity-90" title="مقعد 04" type="button">
+                          <span>04</span>
+                        </button>
+                      </div>
+
+                      <!-- Row 2 -->
+                      <div class="grid grid-cols-5 items-center gap-2">
+                        <button class="h-10 rounded-lg bg-primary hover:bg-primary-container text-on-primary flex flex-col items-center justify-center font-label-md text-label-md font-bold shadow-xs transition-transform active:scale-95" title="مقعد 05 - متاح" type="button">
+                          <span>05</span>
+                        </button>
+                        <button class="h-10 rounded-lg bg-error text-on-error flex flex-col items-center justify-center font-label-md text-label-md font-bold shadow-xs cursor-not-allowed opacity-90" title="مقعد 06" type="button">
+                          <span>06</span>
+                        </button>
+                        <div class="text-center text-outline-variant text-[11px]">ممر</div>
+                        <button class="h-10 rounded-lg bg-error text-on-error flex flex-col items-center justify-center font-label-md text-label-md font-bold shadow-xs cursor-not-allowed opacity-90" title="مقعد 07" type="button">
+                          <span>07</span>
+                        </button>
+                        <button class="h-10 rounded-lg bg-error text-on-error flex flex-col items-center justify-center font-label-md text-label-md font-bold shadow-xs cursor-not-allowed opacity-90" title="مقعد 08" type="button">
+                          <span>08</span>
+                        </button>
+                      </div>
+
+                      <!-- Row 3 -->
+                      <div class="grid grid-cols-5 items-center gap-2">
+                        <button class="h-10 rounded-lg bg-error text-on-error flex flex-col items-center justify-center font-label-md text-label-md font-bold shadow-xs cursor-not-allowed opacity-90" title="مقعد 09" type="button">
+                          <span>09</span>
+                        </button>
+                        <button class="h-10 rounded-lg bg-error text-on-error flex flex-col items-center justify-center font-label-md text-label-md font-bold shadow-xs cursor-not-allowed opacity-90" title="مقعد 10" type="button">
+                          <span>10</span>
+                        </button>
+                        <div class="text-center text-outline-variant text-[11px]">ممر</div>
+                        <button class="h-10 rounded-lg bg-primary hover:bg-primary-container text-on-primary flex flex-col items-center justify-center font-label-md text-label-md font-bold shadow-xs transition-transform active:scale-95" title="مقعد 11 - متاح" type="button">
+                          <span>11</span>
+                        </button>
+                        <button class="h-10 rounded-lg bg-primary hover:bg-primary-container text-on-primary flex flex-col items-center justify-center font-label-md text-label-md font-bold shadow-xs transition-transform active:scale-95" title="مقعد 12 - متاح" type="button">
+                          <span>12</span>
+                        </button>
+                      </div>
+
+                      <!-- Row 4 (YOUR SEAT: 14) -->
+                      <div class="grid grid-cols-5 items-center gap-2 bg-secondary-container/10 p-1 rounded-lg">
+                        <button class="h-10 rounded-lg bg-error text-on-error flex flex-col items-center justify-center font-label-md text-label-md font-bold shadow-xs cursor-not-allowed opacity-90" title="مقعد 13" type="button">
+                          <span>13</span>
+                        </button>
+                        <button data-seat="14" class="h-10 rounded-lg bg-secondary-container text-on-secondary-container flex flex-col items-center justify-center font-label-md text-label-md font-bold shadow-sm ring-2 ring-secondary-container animate-pulse" title="مقعد 14 - مقعدك الحالي" type="button">
+                          <span>14</span>
+                        </button>
+                        <div class="text-center text-primary font-bold text-[11px]">صف 4</div>
+                        <button class="h-10 rounded-lg bg-error text-on-error flex flex-col items-center justify-center font-label-md text-label-md font-bold shadow-xs cursor-not-allowed opacity-90" title="مقعد 15" type="button">
+                          <span>15</span>
+                        </button>
+                        <button class="h-10 rounded-lg bg-error text-on-error flex flex-col items-center justify-center font-label-md text-label-md font-bold shadow-xs cursor-not-allowed opacity-90" title="مقعد 16" type="button">
+                          <span>16</span>
+                        </button>
+                      </div>
+
+                      <!-- Row 5 -->
+                      <div class="grid grid-cols-5 items-center gap-2">
+                        <button class="h-10 rounded-lg bg-primary hover:bg-primary-container text-on-primary flex flex-col items-center justify-center font-label-md text-label-md font-bold shadow-xs transition-transform active:scale-95" title="مقعد 17 - متاح" type="button">
+                          <span>17</span>
+                        </button>
+                        <button class="h-10 rounded-lg bg-error text-on-error flex flex-col items-center justify-center font-label-md text-label-md font-bold shadow-xs cursor-not-allowed opacity-90" title="مقعد 18" type="button">
+                          <span>18</span>
+                        </button>
+                        <div class="text-center text-outline-variant text-[11px]">ممر</div>
+                        <button class="h-10 rounded-lg bg-error text-on-error flex flex-col items-center justify-center font-label-md text-label-md font-bold shadow-xs cursor-not-allowed opacity-90" title="مقعد 19" type="button">
+                          <span>19</span>
+                        </button>
+                        <button class="h-10 rounded-lg bg-primary hover:bg-primary-container text-on-primary flex flex-col items-center justify-center font-label-md text-label-md font-bold shadow-xs transition-transform active:scale-95" title="مقعد 20 - متاح" type="button">
+                          <span>20</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Bus Rear -->
+                  <div class="w-full max-w-sm bg-surface-container-highest rounded-b-2xl py-1 px-space-md text-center text-outline text-[11px]">
+                    المؤخرة / مخرج الطوارئ
+                  </div>
+                </div>
+
+                <!-- Footer Action -->
+                <div class="flex items-center justify-between gap-space-md bg-surface-container-low p-space-sm rounded-xl">
+                  <div>
+                    <div id="current-seat-display" class="font-label-lg text-label-lg text-on-surface font-bold">المقعد الحالي: رقم 14 (نافذة)</div>
+                    <span class="font-body-md text-body-md text-on-surface-variant">نقل جامعي VIP مكيف</span>
+                  </div>
+                  <button id="btn-confirm-booking" class="px-space-lg py-2.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-bold shadow-sm transition-colors flex items-center gap-1" type="button">
+                    <span class="material-symbols-outlined text-[18px]">check</span>
+                    <span>تثبيت الحجز</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Smart Digital Ticket (5 Cols) -->
+            <div class="lg:col-span-5 flex flex-col gap-space-md">
+              <div id="printable-ticket" class="relative bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden flex flex-col border border-outline-variant/30">
+                <!-- Ticket Header -->
+                <div class="bg-primary text-on-primary p-space-md relative overflow-hidden">
+                  <div class="flex items-center justify-between relative z-10">
+                    <div>
+                      <span class="font-label-sm text-label-sm text-secondary-fixed-dim">جامعة الدلتا</span>
+                      <h3 class="font-headline-md text-headline-md font-bold">بطاقة صعود إلكترونية</h3>
+                    </div>
+                    <div id="ticket-status-badge" class="bg-secondary-container text-on-secondary-container font-label-md text-label-md font-bold px-2.5 py-1 rounded-full shadow-xs">
+                      مؤكدة ✅
+                    </div>
+                  </div>
+                  <!-- Student Info -->
+                  <div class="mt-space-sm bg-primary-container/40 rounded-xl p-space-sm flex items-center gap-space-sm">
+                    <div class="w-10 h-10 rounded-full bg-surface-container-lowest text-primary font-bold flex items-center justify-center text-label-lg">
+                      أ
+                    </div>
+                    <div class="flex flex-col">
+                      <span id="ticket-student-name" class="font-label-lg text-label-lg font-bold text-on-primary">أحمد محمود مصطفى</span>
+                      <span id="ticket-student-code" class="text-primary-fixed font-label-sm text-label-sm">كود: 20210452 | هندسة</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Perforated Line -->
+                <div class="relative w-full h-4 bg-surface-container-lowest flex items-center justify-between px-2">
+                  <div class="w-4 h-4 rounded-full bg-surface -mr-4 shadow-inner"></div>
+                  <div class="flex-1 border-b border-dashed border-outline-variant mx-2"></div>
+                  <div class="w-4 h-4 rounded-full bg-surface -ml-4 shadow-inner"></div>
+                </div>
+
+                <!-- Core Details Grid -->
+                <div class="p-space-md flex flex-col gap-space-md bg-surface-container-lowest">
+                  <div class="grid grid-cols-2 gap-space-sm bg-surface-container-low p-space-sm rounded-xl text-right">
+                    <div>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant block">الخط</span>
+                      <span id="ticket-route-line" class="font-label-md text-label-md font-bold text-on-surface">المنصورة ⇋ الجامعة</span>
+                    </div>
+                    <div>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant block">المقعد</span>
+                      <span id="ticket-seat-number" class="font-headline-md text-headline-md font-bold text-primary">14 (نافذة)</span>
+                    </div>
+                    <div>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant block">الحافلة</span>
+                      <span id="ticket-bus-gate" class="font-label-md text-label-md font-bold text-on-surface">DL-104 | بوابة C</span>
+                    </div>
+                    <div>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant block">الموعد</span>
+                      <span id="ticket-departure-time" class="font-label-md text-label-md font-bold text-secondary">07:45 ص</span>
+                    </div>
+                  </div>
+
+                  <!-- QR Code & Countdown -->
+                  <div class="flex flex-col items-center justify-center p-space-sm bg-surface-container rounded-xl gap-2 text-center">
+                    <div class="inline-flex items-center gap-1 bg-tertiary text-on-tertiary px-space-md py-1 rounded-full text-label-sm font-bold" id="countdownTimer">
+                      ⏱️ ينتهي الكود خلال: 24:18 دقيقة
+                    </div>
+                    <div class="p-2 bg-white rounded-lg shadow-xs">
+                      <svg class="w-36 h-36 text-on-surface" fill="currentColor" viewbox="0 0 160 160">
+                        <rect fill="currentColor" height="40" rx="6" width="40" x="10" y="10"></rect>
+                        <rect fill="#ffffff" height="24" rx="2" width="24" x="18" y="18"></rect>
+                        <rect fill="currentColor" height="12" rx="2" width="12" x="24" y="24"></rect>
+                        <rect fill="currentColor" height="40" rx="6" width="40" x="110" y="10"></rect>
+                        <rect fill="#ffffff" height="24" rx="2" width="24" x="118" y="18"></rect>
+                        <rect fill="currentColor" height="12" rx="2" width="12" x="124" y="24"></rect>
+                        <rect fill="currentColor" height="40" rx="6" width="40" x="10" y="110"></rect>
+                        <rect fill="#ffffff" height="24" rx="2" width="24" x="18" y="118"></rect>
+                        <rect fill="currentColor" height="12" rx="2" width="12" x="24" y="124"></rect>
+                        <circle cx="80" cy="80" fill="#00288e" r="14"></circle>
+                        <path d="M75 75 L85 75 L85 82 C85 86 80 88 80 88 C80 88 75 86 75 82 Z" fill="#ffffff"></path>
+                      </svg>
+                    </div>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant">أظهر هذا الكود للسائق عند الصعود</span>
+                  </div>
+
+                  <!-- Actions -->
+                  <div class="flex gap-space-sm">
+                    <button id="btn-download-ticket" class="flex-1 bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md py-2.5 rounded-lg transition-all shadow-xs flex items-center justify-center gap-1" type="button">
+                      <span class="material-symbols-outlined text-[18px]">download</span>
+                      <span>تحميل التذكرة (PDF)</span>
+                    </button>
+                    <button id="btn-cancel-booking" class="bg-surface-container-high hover:bg-error-container hover:text-on-error text-tertiary font-label-md text-label-md py-2.5 px-space-md rounded-lg transition-colors" type="button">
+                      إلغاء الحجز
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live GPS Map Tracking -->
+          <section class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col gap-space-md border border-outline-variant/20">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div>
+                <h2 class="font-headline-md text-headline-md text-on-surface font-bold flex items-center gap-1">
+                  <span class="w-2.5 h-2.5 rounded-full bg-secondary-container animate-ping"></span>
+                  تتبع مسار الباص المباشر (DL-104)
+                </h2>
+                <span class="font-body-md text-body-md text-on-surface-variant">تحديث GPS فوري للمسار</span>
+              </div>
+              <div class="flex items-center gap-space-md">
+                <span class="px-space-sm py-1 rounded-lg bg-surface-container font-label-md text-on-surface"><strong>السرعة:</strong> 65 كم/س</span>
+                <span class="px-space-sm py-1 rounded-lg bg-surface-container-high font-label-md text-primary font-bold"><strong>الوصول:</strong> 08:05 ص (12 دقيقة)</span>
+              </div>
+            </div>
+
+            <!-- Vector Map -->
+            <div class="relative w-full h-72 rounded-xl overflow-hidden bg-inverse-surface flex items-center justify-center">
+              <div class="w-full h-full bg-cover bg-center absolute inset-0 opacity-80" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuARH5hC2Sc2A9E7OYbGLHvtUCo08LeLdWd4PJmG1Dnd1fXC-Z3og6qdMLltE4xBkTVRP1AT1GLm81pbD4ixA9WrCdCZGR-B01aYBfDDoLnUq5P-lF26sNqJQFeyopOk024Sf2nG4jZxrFVlOZ4KSJoGPMRp8a6LJdKqbl-45MmSqRAwnQrHsTTnJoi38nd2N4i5J6NSVhDEFp9uAl0PXfmrv4DEnLyzsSOajXLJfjQYcvQrX6BC4Ddc')"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-inverse-surface via-inverse-surface/40 to-transparent"></div>
+              
+              <!-- Bus Marker -->
+              <div class="absolute top-[42%] right-[44%] transform translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-20">
+                <div class="bg-primary text-on-primary p-2 rounded-full shadow-lg flex items-center justify-center ring-4 ring-secondary-container">
+                  <span class="material-symbols-outlined text-[20px]">directions_bus</span>
+                </div>
+                <span class="mt-1 bg-inverse-surface/90 text-inverse-on-surface px-2 py-0.5 rounded text-label-sm font-bold">باص DL-104 (هنا الآن)</span>
+              </div>
+            </div>
+
+            <!-- Milestones -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm pt-space-xs text-center">
+              <div class="p-space-sm bg-surface-container-low rounded-lg">
+                <span class="font-label-md font-bold text-on-surface block">1. المنصورة</span>
+                <span class="text-primary font-label-sm">انطلق 07:15 ص ✅</span>
+              </div>
+              <div class="p-space-sm bg-surface-container-low rounded-lg">
+                <span class="font-label-md font-bold text-on-surface block">2. سندوب</span>
+                <span class="text-primary font-label-sm">تم المرور 07:30 ص ✅</span>
+              </div>
+              <div class="p-space-sm bg-secondary-container/20 rounded-lg">
+                <span class="font-label-md font-bold text-secondary block">3. الطريق الساحلي</span>
+                <span class="text-secondary font-label-sm font-bold">هنا الآن 🟢</span>
+              </div>
+              <div class="p-space-sm bg-surface-container-low rounded-lg">
+                <span class="font-label-md font-bold text-on-surface block">4. جامعة الدلتا</span>
+                <span class="text-on-surface-variant font-label-sm">الوصول: 08:05 ص</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Emergency Support Bar -->
+          <div class="flex items-center justify-between p-space-md bg-surface-container-lowest rounded-xl shadow-xs border border-outline-variant/20 flex-wrap gap-space-sm">
+            <span class="font-label-md text-on-surface-variant">هل تواجه مشكلة في الحجز أو تأخير الباص؟</span>
+            <div class="flex items-center gap-space-md font-label-md">
+              <span class="text-secondary font-bold">الخط الساخن: 19854</span>
+              <span>•</span>
+              <span class="text-primary font-bold">غرفة العمليات: 4122</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full bg-surface-container-low shadow-[0_1px_8px_rgba(0,0,0,0.04)] mt-auto">
+    <div class="w-full px-margin-lg py-space-md flex flex-col md:flex-row items-center justify-between gap-space-md">
+      <div class="flex items-center gap-space-md text-on-surface-variant">
+        <span class="font-body-md text-body-md text-on-surface font-medium">جامعة الدلتا للعلوم والتكنولوجيا © 2025</span>
+        <span>•</span>
+        <span class="font-label-md text-label-md text-secondary font-bold">الخط الساخن: 19854</span>
+      </div>
+      <div class="flex items-center gap-space-md">
+        <a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="index.html">الرئيسية</a>
+        <a class="font-label-md text-label-md text-primary font-bold hover:underline" href="student.html">حجز المقاعد</a>
+        <a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="driver.html">السائق</a>
+        <a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="supervisor.html">المشرف</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/student.js"></script>
+</body>
+</html>
